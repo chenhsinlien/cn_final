@@ -1,0 +1,18 @@
+client :
+
+socket.on('message', function(data) {
+    console.log('Message:', data.message)
+    var p = document.createElement('p');
+    p.textContent = data.message;
+    document.querySelector('#messages').appendChild(p);
+});
+
+function sendMessage() {
+    var input = document.querySelector('#message_input');
+    if (input) {
+        console.log(input.value)
+        console.log(input.value)
+        socket.send(input.value);
+        input.value = '';
+    }
+}
