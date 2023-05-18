@@ -26,14 +26,16 @@
             questionElement.textContent = question;
         });
         
+
+
         function sendMessage() {
             var input = document.querySelector('#username');
                 // console.log(window.location.href + input.value);
                 // window.location.assign(window.location.href + input.value);
-                socket.send(input.value);
-                input.value = '';
+                socket.send(input.value);// 送到server
+                input.value = '';// 清空test(輸入框)
         }
-        
+
         function sendQuestion() {
             var question = generateQuestion();
             socket.emit('send_question', question);
@@ -50,19 +52,34 @@
 
 
 
+
+
+
     </script>
 </head>
 <body>
     <h2 id="greeting"></h2>
+    <h3 id="questioning"></h3>
+
     <input id="username" type="text">
     <button onclick="sendMessage()">Send</button>
+
     <script>
+
     var params = new URLSearchParams(window.location.search);
     var username = params.get('username');
+
 
     // 顯示歡迎詞
     var greetingElement = document.getElementById('greeting');
     greetingElement.textContent = 'Hello ' + username;
+   
+    
+    //var question=document.getElementById('questioning');
+    //question.textContent='請出題' + username +  <button onclick="sendMessage()">Send</button>;
+
+
     </script>
+
 </body>
 </html>
