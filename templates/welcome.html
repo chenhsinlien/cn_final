@@ -38,12 +38,13 @@
         <button onclick="navigateToClient()">join</button>
         <script>
             function navigateToClient() {
-            var username = document.getElementById('username').value;
-            window.location.href = 'client.html';
-            if (username.trim() !== '') {
-            var url = 'client.html?username=' + encodeURIComponent(username);
-            window.location.href = url;}
-        }
+                var username = document.getElementById('username').value;
+                // window.location.href = 'client.html';
+                if (username.trim() !== '') {
+                    // var url = encodeURIComponent(username);
+                    window.location.href = "/" + username;
+                }
+            }
         </script>   
     </body>
 </html>

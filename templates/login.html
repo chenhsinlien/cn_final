@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flask SocketIO Chat Example</title>
+        <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
+        <script>
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+        </script>
+    </head>
+    <body>
+        <h2>Welcome To The Game</h2>
+        <h3>Please enter your name</h3>
+        <input id="username" type="text">
+        <button onclick="navigateToHome()">join</button>
+        <script>
+            function navigateToHome() {
+                var username = document.getElementById('username').value;
+                socket.emit('login', {'username': username});
+                if (username.trim() !== '') {
+                    window.location.href = "/" + username;
+                }
+            }
+        </script>
+    </body>
+</html>

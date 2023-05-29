@@ -1,0 +1,12 @@
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Score</th>
+    </tr>
+    {% for username, score in scores.items() %}
+        <tr>
+            <td>{{ username }}</td>
+            <td>{{ score }}</td>
+        </tr>
+    {% endfor %}
+</table>

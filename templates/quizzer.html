@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask SocketIO Chat Example</title>
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+    </script>
+</head>
+<body>
+    <h2>Hello This is quiz space</h2>
+    <h2 id="username">{{username}}</h2>
+    
+    <form>
+        <label for="questionInput">Question:</label><br>
+        <input type="text" id="questionInput" name="questionInput"><br>
+        <button type="button" onclick="submitQuestion()">提問</button><br>
+
+        <label for="answerInput">Give Answer:</label><br>
+        <input type="text" id="answerInput" name="answerInput"><br>
+        <button type="button" onclick="submitAnswer()">輸入標準答案</button>
+    </form>
+
+    <script>
+        function submitQuestion() {
+            var inputElement = document.getElementById("questionInput");
+            console.log(inputElement.value);
+            socket.emit('quizzer question', {'question': inputElement.value})
+            // inputElement.value = '';
+        }
+    </script>
+    
+    <script>
+        socket.on('redirect', function(data) {
+        console.log("Received redirect event with data: ", data);
+        window.location.href = data.url;
+        });
+    </script>
+    
+    <script>
+        function submitAnswer() {
+            var inputElement = document.getElementById("answerInput");
+            var inputValue = inputElement.value;
+            console.log(inputValue);
+            socket.emit('quizzer answer', {'answer': inputValue});
+
+            var usernameElement = document.getElementById('username');
+            username = usernameElement.innerText
+            console.log(username)
+            window.location.href = "/" + username;
+        }
+    </script>
+</body>
+</html>

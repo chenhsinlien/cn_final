@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>Flask SocketIO Chat Example</title>
     <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
     <script>
@@ -48,38 +49,37 @@
             return question;
         }
 
-
-
-
-
-
-
-
     </script>
 </head>
 <body>
-    <h2 id="greeting"></h2>
-    <h3 id="questioning"></h3>
 
-    <input id="username" type="text">
-    <button onclick="sendMessage()">Send</button>
+    <h2>Hello</h2>
+    <h2 id="username">{{username}}</h2>
+    {% if quizzer is not undefined %}
+        <h3>You are the quizzer</h3>
+        <script> 
+            function navigateToQuestion() {          
+                console.log("jump to question");
+                var usernameElement = document.getElementById('username');
+                var username = usernameElement.textContent;
+                window.location.href = "/" + username + "/quizzer";
+                }
+        </script>
+        <button onclick="navigateToQuestion()">Question</button>
+    {% endif%}
 
-    <script>
-
-    var params = new URLSearchParams(window.location.search);
-    var username = params.get('username');
-
-
-    // 顯示歡迎詞
-    var greetingElement = document.getElementById('greeting');
-    greetingElement.textContent = 'Hello ' + username;
-   
-    
-    //var question=document.getElementById('questioning');
-    //question.textContent='請出題' + username +  <button onclick="sendMessage()">Send</button>;
-
-
-    </script>
+    {% if quizzer is undefined %}
+        <h3>You are the answer</h3>
+        <script> 
+            function navigateToAnswer() {
+               console.log("jump to answer");
+               var usernameElement = document.getElementById('username');
+               var username = usernameElement.textContent;
+               window.location.href = "/" + username + "/answer";
+            }
+        </script>
+        <button onclick="navigateToAnswer()">Answer</button>
+    {% endif%}
 
 </body>
 </html>
